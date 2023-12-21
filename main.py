@@ -55,7 +55,11 @@ class Patient:
         x1 = (0, 1)[self.arterial_hypertension]
         x3 = self.waist_circum / self.hip_circum
         z = 84.824 - 3.590 * x1 - 14.540 * tgi - 13.441 * x3
+<<<<<<< Updated upstream
         p = 1 / (1 + pow(2.7182, -z))
+=======
+        p = 1 / (1 + pow(2.7182, z))
+>>>>>>> Stashed changes
         return p
 
 
