@@ -11,7 +11,6 @@ class Patient:
         self.hip_circum = None
         self.glucose = None
         self.triglycerides = None
-#        Далее идут индексы на русском без расшифровки за отсутсвием таковой
         self.ot = None
         self.ob = None
 
@@ -48,6 +47,7 @@ class Patient:
     def calculate_tgi(self):
         tr = self.triglycerides * 88.495575
         gl = self.glucose * 18.018018
+        value = np.log(tr * gl)
         return np.log(tr * gl) / 2
 
     def calculate_p(self):
@@ -55,11 +55,8 @@ class Patient:
         x1 = (0, 1)[self.arterial_hypertension]
         x3 = self.waist_circum / self.hip_circum
         z = 84.824 - 3.590 * x1 - 14.540 * tgi - 13.441 * x3
-<<<<<<< Updated upstream
-        p = 1 / (1 + pow(2.7182, -z))
-=======
-        p = 1 / (1 + pow(2.7182, z))
->>>>>>> Stashed changes
+        print("Z:", z)
+        p = 1 / (1 + np.exp(z))
         return p
 
 
@@ -113,97 +110,97 @@ class PatientBuilder:
 
 if __name__ == "__main__":
     patient_1 = PatientBuilder() \
-                    .add_gender("woman") \
-                    .add_age(55) \
-                    .add_bmi(27) \
-                    .add_waist_circum(87) \
-                    .add_hip_circum(113) \
-                    .add_glucose(5.2) \
-                    .add_triglycerides(1.6) \
-                    .build()
+        .add_gender("woman") \
+        .add_age(55) \
+        .add_bmi(27) \
+        .add_waist_circum(87) \
+        .add_hip_circum(113) \
+        .add_glucose(5.2) \
+        .add_triglycerides(1.6) \
+        .build()
 
     tgi = patient_1.calculate_tgi()
     p = patient_1.calculate_p()
     print("Пациент 1")
-    print(f"ИТГ: {round(tgi, 2)}, P: {round(p, 2)}")
+    print(f"ИТГ: {round(tgi, 4)}, P: {round(p, 4)}")
 
     patient_2 = PatientBuilder() \
-                    .add_gender("woman") \
-                    .add_age(58) \
-                    .add_arterial_hypertension(True) \
-                    .add_bmi(28.7) \
-                    .add_waist_circum(107.4) \
-                    .add_hip_circum(97.9) \
-                    .add_glucose(9.9) \
-                    .add_triglycerides(2.64)\
-                    .build()
+        .add_gender("woman") \
+        .add_age(58) \
+        .add_arterial_hypertension(True) \
+        .add_bmi(28.7) \
+        .add_waist_circum(107.4) \
+        .add_hip_circum(97.9) \
+        .add_glucose(9.9) \
+        .add_triglycerides(2.64) \
+        .build()
 
     tgi = patient_2.calculate_tgi()
     p = patient_2.calculate_p()
     print("Пациент 2")
-    print(f"ИТГ: {round(tgi, 2)}, P: {round(p, 2)}")
+    print(f"ИТГ: {round(tgi, 4)}, P: {round(p, 4)}")
 
     patient_3 = PatientBuilder() \
-                    .add_gender("woman") \
-                    .add_age(60) \
-                    .add_arterial_hypertension(True) \
-                    .add_bmi(31) \
-                    .add_waist_circum(104.1) \
-                    .add_hip_circum(107.1) \
-                    .add_glucose(5.1) \
-                    .add_triglycerides(1.93)\
-                    .build()
+        .add_gender("woman") \
+        .add_age(60) \
+        .add_arterial_hypertension(True) \
+        .add_bmi(31) \
+        .add_waist_circum(104.1) \
+        .add_hip_circum(107.1) \
+        .add_glucose(5.1) \
+        .add_triglycerides(1.93) \
+        .build()
 
     tgi = patient_3.calculate_tgi()
     p = patient_3.calculate_p()
     print("Пациент 3")
-    print(f"ИТГ: {round(tgi, 2)}, P: {round(p, 2)}")
+    print(f"ИТГ: {round(tgi, 4)}, P: {round(p, 4)}")
 
     patient_4 = PatientBuilder() \
-                    .add_gender("man") \
-                    .add_age(54) \
-                    .add_arterial_hypertension(True) \
-                    .add_bmi(27.4) \
-                    .add_waist_circum(90.8) \
-                    .add_hip_circum(106.1) \
-                    .add_glucose(4.8) \
-                    .add_triglycerides(1.8)\
-                    .build()
+        .add_gender("man") \
+        .add_age(54) \
+        .add_arterial_hypertension(True) \
+        .add_bmi(27.4) \
+        .add_waist_circum(90.8) \
+        .add_hip_circum(106.1) \
+        .add_glucose(4.8) \
+        .add_triglycerides(1.8) \
+        .build()
 
     tgi = patient_4.calculate_tgi()
     p = patient_4.calculate_p()
     print("Пациент 4")
-    print(f"ИТГ: {round(tgi, 2)}, P: {round(p, 2)}")
+    print(f"ИТГ: {round(tgi, 4)}, P: {round(p, 4)}")
 
     patient_5 = PatientBuilder() \
-                    .add_gender("man") \
-                    .add_age(56) \
-                    .add_arterial_hypertension(True) \
-                    .add_bmi(38.9) \
-                    .add_waist_circum(135) \
-                    .add_hip_circum(120) \
-                    .add_glucose(6.6) \
-                    .add_triglycerides(1.25)\
-                    .build()
+        .add_gender("man") \
+        .add_age(56) \
+        .add_arterial_hypertension(True) \
+        .add_bmi(38.9) \
+        .add_waist_circum(135) \
+        .add_hip_circum(120) \
+        .add_glucose(6.6) \
+        .add_triglycerides(1.25) \
+        .build()
 
     tgi = patient_5.calculate_tgi()
     p = patient_5.calculate_p()
     print("Пациент 5")
-    print(f"ИТГ: {round(tgi, 2)}, P: {round(p, 2)}")
+    print(f"ИТГ: {round(tgi, 4)}, P: {round(p, 4)}")
 
     patient_6 = PatientBuilder() \
-                    .add_gender("man") \
-                    .add_age(54) \
-                    .add_arterial_hypertension(True) \
-                    .add_bmi(30.4) \
-                    .add_waist_circum(105) \
-                    .add_hip_circum(106.1) \
-                    .add_glucose(5.5) \
-                    .add_triglycerides(1.8)\
-                    .build()
+        .add_gender("man") \
+        .add_age(54) \
+        .add_arterial_hypertension(True) \
+        .add_bmi(30.4) \
+        .add_waist_circum(105) \
+        .add_hip_circum(106.1) \
+        .add_glucose(5.5) \
+        .add_triglycerides(1.8) \
+        .build()
 
     tgi = patient_6.calculate_tgi()
     p = patient_6.calculate_p()
     print("Пациент 6")
-    print(f"ИТГ: {round(tgi, 2)}, P: {round(p, 2)}")
+    print(f"ИТГ: {round(tgi, 4)}, P: {round(p, 4)}")
 
